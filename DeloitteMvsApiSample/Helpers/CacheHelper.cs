@@ -7,7 +7,7 @@ namespace DeloitteMvcApiSample.Helpers
 
     public static class CacheKeyGenerator
     {
-        public static string GetUserCacheToken(ClaimsPrincipal principal)
+        public static string GetUserCacheToken(this ClaimsPrincipal principal)
         {
             var name = principal.Identity.Name;
             var issuedAt = principal.FindFirst("iat")?.Value;
@@ -21,7 +21,7 @@ namespace DeloitteMvcApiSample.Helpers
 
         public static bool Exists<T>(string cacheItemName)
         {
-            ObjectCache cache = MemoryCache.Default;
+            MemoryCache cache = MemoryCache.Default;
             
             return cache.Contains(cacheItemName);
         }
@@ -41,7 +41,7 @@ namespace DeloitteMvcApiSample.Helpers
 
         public static T Get<T>(string cacheItemName)
         {
-            ObjectCache cache = MemoryCache.Default;
+            MemoryCache cache = MemoryCache.Default;
 
             var cachedObject = (T)cache[cacheItemName];
 
@@ -50,7 +50,7 @@ namespace DeloitteMvcApiSample.Helpers
 
         public static void Set<T>(string cacheItemName, object cachedObject, int cacheMins)
         {
-            ObjectCache cache = MemoryCache.Default;
+            MemoryCache cache = MemoryCache.Default;
 
             CacheItemPolicy policy = new CacheItemPolicy
             {

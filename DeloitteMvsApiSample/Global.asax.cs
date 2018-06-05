@@ -30,23 +30,24 @@ namespace DeloitteMvcApiSample
         {
             if(ClaimsPrincipal.Current.Identity.IsAuthenticated)
             {
-                var userToken = CacheKeyGenerator.GetUserCacheToken(ClaimsPrincipal.Current);
+                var userToken = ClaimsPrincipal.Current.GetUserCacheToken();
 
-                var cachedUser = CacheHelper.GetOrSet<UserProfile>(userToken, 1, () => GetCurrentUserProfile("Hem"));                
+                var cachedUser = CacheHelper.GetOrSet<UserProfile>(userToken, 1, () => GetCurrentUserProfile(ClaimsPrincipal.Current));                
             }
         }
 
 
        
 
-        private UserProfile GetCurrentUserProfile(string name)
+        private UserProfile GetCurrentUserProfile(ClaimsPrincipal claimsPrincipal)
         {
             var random = new Random();
 
             return new UserProfile
             {
-                UniqueName = name,
-                Id = random.Next(int.MaxValue)
+                UniqueName = claimsPrincipal.Identity.Name,
+                Id = random.Next(int.MaxValue),
+                Roles = claimsPrincipal.FindAll(ClaimTypes.Role).Select(x=>x.Value).ToArray()
             };
         }
         

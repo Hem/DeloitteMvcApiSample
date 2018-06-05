@@ -250,8 +250,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CacheHelper.cs" />
+    <Compile Include="Helpers\AbstractCacheReporitory.cs" />
+    <Compile Include="Helpers\IAbstractCacheReporitory.cs" />
     <Compile Include="Models\AdalTokenCache.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\UserTokenCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\UserProfile.cs" />
