@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "3ddfca50-8fac-4850-afbf-9d5ce3c2d54c",
+		"name": "Mostly Adventurous - Deloitte MVC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MA Generate Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "client_id",
+							"value": "ee6a9008-279c-40b4-ab94-7857aa04e6ef",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"value": "ee6a9008-279c-40b4-ab94-7857aa04e6ef",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "hem@mostlyadventurous.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "UfgREH2rrQs/DPtiSgAfboYgSi4l3WN0w75dujSHI2c=",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/mostlyadventurous.com/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"mostlyadventurous.com",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9184/api/Values",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImlCakwxUmNxemhpeTRmcHhJeGRacW9oTTJZayIsImtpZCI6ImlCakwxUmNxemhpeTRmcHhJeGRacW9oTTJZayJ9.eyJhdWQiOiJlZTZhOTAwOC0yNzljLTQwYjQtYWI5NC03ODU3YWEwNGU2ZWYiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9kYmE0MTNhNy1lMGQ0LTQ5MjQtOTY4MC0wMjE1ZmEyNWQ5ZGQvIiwiaWF0IjoxNTI3MzU3MjE0LCJuYmYiOjE1MjczNTcyMTQsImV4cCI6MTUyNzM2MTExNCwiYWNyIjoiMSIsImFpbyI6IlkyZGdZR0JtbkthNCtGM0F0ODlKcjJLWGZLOTA1RGsxOVZpelk2L3pQcFg2YW8rM3FaMEEiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiZWU2YTkwMDgtMjc5Yy00MGI0LWFiOTQtNzg1N2FhMDRlNmVmIiwiYXBwaWRhY3IiOiIxIiwiZmFtaWx5X25hbWUiOiJUYWxyZWphIiwiZ2l2ZW5fbmFtZSI6IkhlbSIsImlwYWRkciI6IjY4LjUzLjEzMy4zMCIsIm5hbWUiOiJIZW0iLCJvaWQiOiIwMmE5MmE0Zi0zZjFmLTQ5NjMtODIyMC02N2U2ZGRmMmFhYjEiLCJzY3AiOiJvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQiLCJzdWIiOiJGenZTT3Jyb0dQbG5BSy1RSHFFYTVfRzV2ZERudzNiUnJPS3NmRGVLZTVnIiwidGlkIjoiZGJhNDEzYTctZTBkNC00OTI0LTk2ODAtMDIxNWZhMjVkOWRkIiwidW5pcXVlX25hbWUiOiJoZW1AbW9zdGx5YWR2ZW50dXJvdXMuY29tIiwidXBuIjoiaGVtQG1vc3RseWFkdmVudHVyb3VzLmNvbSIsInV0aSI6IjJiSTk4dU8tOWt1SDVLZUpTcVVJQUEiLCJ2ZXIiOiIxLjAifQ.Q23Dy8gYsHT7LzVaGqnjBupyqx-t9SNq4vfI3Ahrcjq5tZUf5wvvn47C9RY_6i5_nZDt2876UbkVERM11oAKj113vPkvnQtmz501WOX0BCsfOS1WRAuUDeDFhJrbhWOxrBPTTN_Jj6uD4gCoctWZ-RLFziYhRLiAbjNiUiO_vxy0cX5HQsvRwQdeY2HtZGNpjx0NwIDoFY9yq2s3YE3iNuq2hJMBBKlVfssAHkDjcrfSN44tNdlQMxLr9WfgvapBp3Jn1LAA-FnuSLSBL4PegxJri5NFxlu54gEHNH4TT5xVDThaS9j8wYqF7AGjuPo3mbf7xZd4vSli73-syghGIQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9184/api/Values",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9184",
+					"path": [
+						"api",
+						"Values"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
