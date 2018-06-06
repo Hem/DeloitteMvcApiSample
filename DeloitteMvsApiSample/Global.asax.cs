@@ -32,7 +32,7 @@ namespace DeloitteMvcApiSample
             {
                 var userToken = ClaimsPrincipal.Current.GetUserCacheToken();
 
-                var cachedUser = CacheHelper.GetOrSet<UserProfile>(userToken, 1, () => GetCurrentUserProfile(ClaimsPrincipal.Current));                
+                var cachedUser = CacheHelper.GetOrSet<UserProfile>(userToken, 15, () => GetCurrentUserProfile(ClaimsPrincipal.Current));                
             }
         }
 

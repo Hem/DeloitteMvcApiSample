@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IdentityModel.Claims;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Owin.Security;
@@ -16,6 +13,7 @@ using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin.Security.Notifications;
+using Microsoft.Owin.Security.OAuth;
 
 namespace DeloitteMvcApiSample
 {
@@ -38,7 +36,8 @@ namespace DeloitteMvcApiSample
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            // ApplicationDbContext db = new ApplicationDbContext();
+            // db context is not used on page, I believe call is here only to initialize things...
+            ApplicationDbContext db = new ApplicationDbContext();
 
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
@@ -52,6 +51,20 @@ namespace DeloitteMvcApiSample
                     {
                         SaveSigninToken = true,
                         ValidAudience = apiClientId
+                    },
+                    Provider = new OAuthBearerAuthenticationProvider()
+                    {
+                        // claim augmentation... 
+                        // Add additional elements to the claim
+                        // Note: This is called for every request, we may want to "cache" elements.
+                        OnValidateIdentity = (context) =>
+                        {
+                            context.Ticket.Identity.AddClaim(
+                                new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, "Administrator")
+                                );
+
+                            return Task.FromResult(0);
+                        }
                     }
                 });
             
@@ -75,15 +88,22 @@ namespace DeloitteMvcApiSample
                                 code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId).Result;
 
                             return Task.FromResult(0);
+                        },
+
+                        // Claim Augmentation:
+                        // Add additional claims when the request is authenticated
+                        // Note: This is called once and then the claims are stored in a cookie or the reference is.
+                        SecurityTokenValidated = (context) =>
+                        {
+                            context.AuthenticationTicket.Identity.AddClaim(
+                                    new System.Security.Claims.Claim( System.Security.Claims.ClaimTypes.Role, "Requestor")
+                                  );
+                            return Task.FromResult(0);
                         }
                     }
                 });
         }
-
-        //private Task onSecurityTokenValidated(SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> arg)
-        //{
-        //    return Task.FromResult(0);
-        //}
+        
 
         private static string EnsureTrailingSlash(string value)
         {
